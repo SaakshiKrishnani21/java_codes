@@ -1,0 +1,75 @@
+import java.util.Scanner;
+// Parent Class
+class VehiclePS {
+    String brand;
+    String model;
+
+    void displayInfo() {
+        System.out.println("Brand: " + brand);
+        System.out.println("Model: " + model);
+    }
+}
+
+// Child Class Car
+class CarPS extends VehiclePS {
+    int numberOfDoors;
+
+    @Override
+    void displayInfo() {
+        super.displayInfo();
+        System.out.println("Number of Doors: " + numberOfDoors);
+        System.out.println("---------------------------");
+    }
+}
+
+// Child Class Motorcycle
+class MotorcyclePS extends VehiclePS {
+    boolean hasCarrier;
+
+    @Override
+    void displayInfo() {
+        super.displayInfo();
+        System.out.println("Has Carrier: " + hasCarrier);
+        System.out.println("---------------------------");
+    }
+}
+
+// Main Class
+public class VehicleManagementPS {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Input For Car
+        CarPS car = new CarPS();
+        System.out.println("Enter Car Brand:");
+        car.brand = sc.nextLine();
+
+        System.out.println("Enter Car Model:");
+        car.model = sc.nextLine();
+
+        System.out.println("Enter Number of Doors:");
+        car.numberOfDoors = sc.nextInt();
+        sc.nextLine(); // consume extra line
+
+        // Input For Motorcycle
+        MotorcyclePS bike = new MotorcyclePS();
+        System.out.println("Enter Motorcycle Brand:");
+        bike.brand = sc.nextLine();
+
+        System.out.println("Enter Motorcycle Model:");
+        bike.model = sc.nextLine();
+
+        System.out.println("Does the Motorcycle have a carrier? (true/false):");
+        bike.hasCarrier = sc.nextBoolean();
+
+        // Display Info
+        System.out.println("\n------ Vehicle Details ------");
+        System.out.println("Car Details:");
+        car.displayInfo();
+
+        System.out.println("Motorcycle Details:");
+        bike.displayInfo();
+
+        sc.close();
+    }
+}
