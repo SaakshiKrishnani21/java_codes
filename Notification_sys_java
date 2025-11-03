@@ -1,0 +1,118 @@
+import java.util.Scanner;
+
+// Abstract Class
+abstract class NotificationPS {
+    String type;
+
+    NotificationPS(String type) {
+        this.type = type;
+    }
+
+    String getType() {
+        return type;
+    }
+
+    abstract void send(String to, String msg);
+}
+
+// Email Notification
+class EmailNotificationPS extends NotificationPS {
+
+    EmailNotificationPS() {
+        super("Email");
+    }
+
+    @Override
+    void send(String to, String msg) {
+        System.out.println("\n--- Sending Email ---");
+        System.out.println("To: " + to);
+        System.out.println("Message: " + msg);
+        System.out.println("Status: Email Sent Successfully!");
+    }
+}
+
+// SMS Notification
+class SMSNotificationPS extends NotificationPS {
+
+    SMSNotificationPS() {
+        super("SMS");
+    }
+
+    @Override
+    void send(String to, String msg) {
+        System.out.println("\n--- Sending SMS ---");
+        System.out.println("To: " + to);
+        System.out.println("Message: " + msg);
+        System.out.println("Status: SMS Sent Successfully!");
+    }
+}
+
+// Push Notification
+class PushNotificationPS extends NotificationPS {
+
+    PushNotificationPS() {
+        super("Push Notification");
+    }
+
+    @Override
+    void send(String to, String msg) {
+        System.out.println("\n--- Sending Push Notification ---");
+        System.out.println("To: " + to);
+        System.out.println("Message: " + msg);
+        System.out.println("Status: Push Notification Delivered!");
+    }
+}
+
+// Notification Service
+class NotificationServicePS {
+
+    void notifyUser(NotificationPS notification, String to, String msg) {
+        System.out.println("\nUsing Notification Type: " + notification.getType());
+        notification.send(to, msg);
+    }
+}
+
+// Main Class For User Input
+public class NotificationMainPS {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        NotificationServicePS service = new NotificationServicePS();
+
+        System.out.println("Enter receiver name/number/email:");
+        String to = sc.nextLine();
+
+        System.out.println("Enter message:");
+        String msg = sc.nextLine();
+
+        System.out.println("\nSelect Notification Type:");
+        System.out.println("1. Email");
+        System.out.println("2. SMS");
+        System.out.println("3. Push Notification");
+        System.out.print("Enter choice: ");
+        int choice = sc.nextInt();
+
+        NotificationPS notification;
+
+        switch (choice) {
+            case 1:
+                notification = new EmailNotificationPS();
+                break;
+            case 2:
+                notification = new SMSNotificationPS();
+                break;
+            case 3:
+                notification = new PushNotificationPS();
+                break;
+            default:
+                System.out.println("Invalid Choice!");
+                sc.close();
+                return;
+        }
+
+        // Send notification
+        service.notifyUser(notification, to, msg);
+
+        sc.close();
+    }
+}
